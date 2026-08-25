@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.item;
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IBarrel;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.DrinkEffectResolver;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModDataComponents;
+import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class BottleBlockItem extends BlockItem {
+    public static final int MIN_BREW_LEVEL_FOR_SHAKER = 4;
     public BottleBlockItem(Identifier id, Block block) {
         this(block, new Properties()
                 .stacksTo(16)
@@ -26,7 +28,7 @@ public class BottleBlockItem extends BlockItem {
     }
 
     public BottleBlockItem(Block block, Properties properties) {
-        super(block, properties);
+        super(block, properties.useBlockDescriptionPrefix());
     }
 
     public static ItemStack getMaxLevelDrink(DeferredItem<Item> item) {
@@ -52,6 +54,11 @@ public class BottleBlockItem extends BlockItem {
         return Math.max(IBarrel.BREWING_NOT_STARTED, Math.min(brewLevel, IBarrel.BREWING_FINISHED));
     }
 
+    public static boolean isValidForShaker(ItemStack stack) {
+        return !(stack.getItem() instanceof BottleBlockItem)
+                || getBrewLevel(stack) >= MIN_BREW_LEVEL_FOR_SHAKER;
+    }
+
     public ItemStack getFilledStack(int brewLevel) {
         ItemStack stack = new ItemStack(this);
         setBrewLevel(stack, brewLevel);
@@ -60,6 +67,15 @@ public class BottleBlockItem extends BlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
+        ChatFormatting applied = ColorUtils.ITEM_COLOR_CACHE.apply(stack.getItem());
+        if (applied != ChatFormatting.RESET) {
+            String key = "color.kaleidoscope_tavern.%s".formatted(applied.getName());
+            Component text = Component.translatable("color.kaleidoscope_tavern.prefix")
+                    .withStyle(ChatFormatting.GRAY)
+                    .append(Component.translatable(key).withStyle(applied));
+            builder.accept(text);
+        }
+
         int brewLevel = getBrewLevel(stack);
         if (0 < brewLevel) {
             Component brewLevelText = Component.translatable("message.kaleidoscope_tavern.barrel.brew_level.%d".formatted(brewLevel));

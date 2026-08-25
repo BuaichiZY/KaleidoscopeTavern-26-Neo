@@ -23,7 +23,7 @@ public class PaintingBlockItem extends BlockItem {
     public PaintingBlockItem(Identifier id, Supplier<? extends Block> block) {
         super(block.get(), new Properties()
                 .setId(ResourceKey.create(Registries.ITEM, id))
-                .overrideDescription("item.kaleidoscope_tavern.painting")
+                .overrideDescription("block.kaleidoscope_tavern.painting")
         );
     }
 

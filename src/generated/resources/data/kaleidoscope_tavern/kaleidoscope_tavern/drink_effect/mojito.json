@@ -1,0 +1,15 @@
+{
+  "effects": {
+    "0": [
+      {
+        "amplifier": 0,
+        "duration": 1800,
+        "effect": "kaleidoscope_tavern:vision",
+        "probability": 1.0
+      }
+    ]
+  },
+  "item": {
+    "id": "kaleidoscope_tavern:mojito"
+  }
+}

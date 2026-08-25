@@ -4,5 +4,22 @@
       "kaleidoscope_tavern:effect/vision"
     ],
     "subtitle": "subtitles.kaleidoscope_tavern.effect.vision"
+  },
+  "block.holder.pop": {
+    "sounds": [
+      "kaleidoscope_tavern:block/holder_pop"
+    ]
+  },
+  "item.shaker.shaking": {
+    "sounds": [
+      "kaleidoscope_tavern:item/shaker/shaking_1",
+      "kaleidoscope_tavern:item/shaker/shaking_2",
+      "kaleidoscope_tavern:item/shaker/shaking_3"
+    ]
+  },
+  "item.shaker.end": {
+    "sounds": [
+      "kaleidoscope_tavern:item/shaker/end"
+    ]
   }
 }

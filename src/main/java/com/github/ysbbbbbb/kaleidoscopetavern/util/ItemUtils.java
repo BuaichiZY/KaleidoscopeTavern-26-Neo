@@ -8,8 +8,23 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import com.github.ysbbbbbb.kaleidoscopetavern.util.neo.ItemStackHandler;
 
 public class ItemUtils {
+    public static void giveItemToPlayer(Player player, ItemStack stack) {
+        if (!stack.isEmpty() && !player.getInventory().add(stack)) {
+            player.drop(stack, false);
+        }
+    }
+
+    public static ItemStack insertItemStacked(ItemStackHandler handler, ItemStack stack, boolean simulate) {
+        ItemStack remainder = stack;
+        for (int slot = 0; slot < handler.getSlots() && !remainder.isEmpty(); slot++) {
+            remainder = handler.insertItem(slot, remainder, simulate);
+        }
+        return remainder;
+    }
+
     public static void getItemToLivingEntity(LivingEntity entity, ItemStack stack) {
         getItemToLivingEntity(entity, stack, -1);
     }

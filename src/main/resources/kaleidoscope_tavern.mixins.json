@@ -2,11 +2,20 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.github.ysbbbbbb.kaleidoscopetavern.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "refmap": "kaleidoscope_tavern.refmap.json",
   "mixins": [
   ],
   "client": [
+    "ArmPoseMixin",
+    "AvatarRenderStateMixin",
+    "AvatarRendererMixin",
+    "HumanoidModelMixin",
+    "ItemInHandRendererMixin",
+    "ModelPartMixin",
+    "PlayerModelMixin",
+    "compat.PlayerAnimationManagerMixin",
+    "compat.PunchyConfigMixin"
   ],
   "injectors": {
     "defaultRequire": 1

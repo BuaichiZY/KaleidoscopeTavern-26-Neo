@@ -212,6 +212,21 @@ public final class DrinkEffectDataProvider {
                 List.of(effect(ModEffects.VISION, 720, 2))
         );
 
+        // 鸡尾酒没有酿造等级，统一使用等级 0 保存其固定效果。
+        addCocktail(context, ModItems.BLOODY_MARY, effect(ModEffects.BLOODY_MARY, 1800, 0));
+        addCocktail(context, ModItems.EMERALD, effect(ModEffects.LONG_REACH, 2700, 0));
+        addCocktail(context, ModItems.GRASSHOPPER, effect(ModEffects.GRASS_STEALTH, 900, 0));
+        addCocktail(context, ModItems.ALLIUM_GARDEN, effect(ModEffects.XP_DRAIN, 1800, 0));
+        addCocktail(context, ModItems.DEPTH_CHARGE, effect(ModEffects.ARDENT_HEAT, 300, 0));
+        addCocktail(context, ModItems.SCREWDRIVER, effect(ModEffects.UPSIDE_DOWN, 0, 0));
+        addCocktail(context, ModItems.GODFATHER, effect(ModEffects.ZENITH, 0, 0));
+        addCocktail(context, ModItems.WHITE_LADY, effect(ModEffects.HIGH_HEELS, 3600, 0));
+        addCocktail(context, ModItems.MOJITO, effect(ModEffects.VISION, 1800, 0));
+        addCocktail(context, ModItems.BRASS_HEART, effect(ModEffects.ARDENT_HEAT, 300, 0));
+        addCocktail(context, ModItems.NETHER_SPECIAL, effect(ModEffects.TOMB_RAIDER, 90, 0));
+        addCocktail(context, ModItems.SCULK_SPECIAL, effect(ModEffects.SHRIEK_ATTACK, 0, 0));
+        addCocktail(context, ModItems.MYSTERY_COCKTAIL, effect(ModEffects.SLIGHTLY_TIPSY, 180, 0));
+
         // 醋（失败产物）
         add(context, ModItems.VINEGAR,
                 List.of(
@@ -323,6 +338,14 @@ public final class DrinkEffectDataProvider {
 
     private static DrinkEffectData.Entry effect(Holder<MobEffect> effect, int duration, int amplifier) {
         return new DrinkEffectData.Entry(effect, duration, amplifier, 1f);
+    }
+
+    private static void addCocktail(BootstrapContext<DrinkEffectData> context,
+                                    DeferredItem<Item> item,
+                                    DrinkEffectData.Entry... entries) {
+        String fileName = BuiltInRegistries.ITEM.getKey(item.get()).getPath();
+        ItemStackTemplate template = new ItemStackTemplate(item.get());
+        register(context, fileName, new DrinkEffectData(template, Map.of(0, List.of(entries))));
     }
 
     private static void register(BootstrapContext<DrinkEffectData> context, String fileName, DrinkEffectData value) {

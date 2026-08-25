@@ -34,6 +34,7 @@ public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWat
     public static final MapCodec<BottleBlock> CODEC = simpleCodec(p -> new BottleBlock(p, false));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final VoxelShape SHAPE = Block.box(5, 0, 5, 11, 14, 11);
+    public static final VoxelShape SIMPLE_BOTTLE_SHAPE = Block.box(5, 0, 5, 11, 10, 11);
 
     /**
      * 是否为异形酒瓶，这决定了酒柜中可以放入一瓶还是两瓶

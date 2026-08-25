@@ -1,0 +1,15 @@
+{
+  "effects": {
+    "0": [
+      {
+        "amplifier": 0,
+        "duration": 3600,
+        "effect": "kaleidoscope_tavern:high_heels",
+        "probability": 1.0
+      }
+    ]
+  },
+  "item": {
+    "id": "kaleidoscope_tavern:white_lady"
+  }
+}

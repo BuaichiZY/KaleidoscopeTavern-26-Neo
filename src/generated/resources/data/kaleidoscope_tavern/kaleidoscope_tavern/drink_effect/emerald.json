@@ -1,0 +1,15 @@
+{
+  "effects": {
+    "0": [
+      {
+        "amplifier": 0,
+        "duration": 2700,
+        "effect": "kaleidoscope_tavern:long_reach",
+        "probability": 1.0
+      }
+    ]
+  },
+  "item": {
+    "id": "kaleidoscope_tavern:emerald"
+  }
+}

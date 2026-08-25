@@ -2,11 +2,19 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.144'
 }
 
 group = mod_group_id
 version = mod_version
+
+base {
+    archivesName = "kaleidoscopetavern-${minecraft_version}"
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    archiveVersion = "v${mod_version}"
+}
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
@@ -39,7 +47,10 @@ neoForge {
         data {
             clientData()
             programArguments.addAll '--mod', project.mod_id, '--all',
-                    '--output', file('src/generated/resources/').getAbsolutePath(),
+                    // Validate current data generators in an isolated build directory.
+                    // The complete 1.2 resource set is intentionally kept checked in
+                    // under src/generated/resources and must not be pruned by runData.
+                    '--output', file('build/generated/resources/').getAbsolutePath(),
                     '--existing', file('src/main/resources/').getAbsolutePath()
         }
         configureEach {
@@ -121,7 +132,7 @@ repositories {
 dependencies {
     // JEI
     compileOnly "mezz.jei:jei-26.1.2-neoforge-api:29.5.0.26"
-    runtimeOnly "mezz.jei:jei-26.1.2-neoforge:29.5.0.26"
+    // Install the full JEI mod in run/client only when testing that optional integration.
 
     // EMI
     compileOnly "maven.modrinth:emi:1.1.22+1.21.1+neoforge"
@@ -187,9 +198,39 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
 }
 
+// These optional recipe-viewer adapters still target their 1.21-era plugin APIs.
+// Keep the sources as porting references without shipping incompatible classes.
+sourceSets.main.java {
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/compat/emi/category/EmiShakerRecipe.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/compat/rei/category/ReiShakerRecipeCategory.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/datagen/tag/TagEntityType.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/network/message/DrinkEffectSyncS2CMessage.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/client/render/renderstate/BarCabinetBlockEntityRenderState.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/client/render/renderstate/BarStoolBlockEntityRenderState.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/client/render/renderstate/BarrelBlockEntityRenderState.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/client/render/renderstate/ChalkboardBlockEntityRenderState.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/client/render/renderstate/PressingTubBlockEntityRenderState.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/client/render/renderstate/SandwichBoardBlockEntityRenderState.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/client/render/renderstate/TextBlockEntityRenderState.java'
+    exclude 'com/github/ysbbbbbb/kaleidoscopetavern/client/render/renderstate/ThrownMolotovEntityRenderState.java'
+}
+
+// ModDev defaults its asset helper to Java 21. Java 25 can run that helper and
+// keeps the complete local development workflow on the requested toolchain.
+tasks.named('downloadAssets').configure {
+    def java25Launcher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    javaExecutable.set(java25Launcher.map { it.executablePath.asFile.absolutePath })
+}
+
 java {
     // 编译源码文件，方便发布 maven
     withSourcesJar()
+}
+
+tasks.named('sourcesJar', Jar).configure {
+    archiveClassifier = 'source'
 }
 
 idea {

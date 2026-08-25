@@ -6,6 +6,7 @@ public class GeneralConfig {
     public static ModConfigSpec init() {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         general(builder);
+        bottle(builder);
         return builder.build();
     }
 
@@ -14,6 +15,11 @@ public class GeneralConfig {
 
     // 是否禁用龙头的无限熔岩
     public static ModConfigSpec.BooleanValue INFINITE_LAVA_FROM_TAP;
+    public static ModConfigSpec.BooleanValue WATER_BOTTLE_PLACEMENT;
+    public static ModConfigSpec.BooleanValue HONEY_BOTTLE_PLACEMENT;
+    public static ModConfigSpec.BooleanValue POTION_BOTTLE_PLACEMENT;
+    public static ModConfigSpec.BooleanValue DRAGON_BREATH_BOTTLE_PLACEMENT;
+    public static ModConfigSpec.BooleanValue EXPERIENCE_BOTTLE_PLACEMENT;
 
     private static void general(ModConfigSpec.Builder builder) {
         builder.push("tavern");
@@ -24,6 +30,16 @@ public class GeneralConfig {
         builder.comment("Whether to enable infinite lava from the tap. If enabled, the tap will provide infinite lava when attached to a lava cauldron.");
         INFINITE_LAVA_FROM_TAP = builder.define("InfiniteLavaFromTap", true);
 
+        builder.pop();
+    }
+
+    private static void bottle(ModConfigSpec.Builder builder) {
+        builder.push("vanilla bottle placement");
+        WATER_BOTTLE_PLACEMENT = builder.define("WaterBottle", true);
+        HONEY_BOTTLE_PLACEMENT = builder.define("HoneyBottle", true);
+        POTION_BOTTLE_PLACEMENT = builder.define("PotionBottle", true);
+        DRAGON_BREATH_BOTTLE_PLACEMENT = builder.define("DragonBreathBottle", true);
+        EXPERIENCE_BOTTLE_PLACEMENT = builder.define("ExperienceBottle", true);
         builder.pop();
     }
 }

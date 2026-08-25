@@ -25,6 +25,7 @@ import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -110,6 +111,11 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
     }
 
     public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel, @Nullable Entity owner) {
+        makeThrownPotion(level, x, y, z, brewLevel, owner, Vec3.ZERO);
+    }
+
+    public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel,
+                                 @Nullable Entity owner, Vec3 movement) {
         if (brewLevel < IBarrel.BREWING_STARTED) {
             return;
         }
@@ -131,6 +137,8 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         if (owner instanceof LivingEntity livingEntity) {
             potion.setOwner(livingEntity);
         }
+
+        potion.setDeltaMovement(movement);
 
         level.addFreshEntity(potion);
     }

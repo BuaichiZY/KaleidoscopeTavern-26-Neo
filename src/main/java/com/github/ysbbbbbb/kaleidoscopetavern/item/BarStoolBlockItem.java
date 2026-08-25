@@ -13,7 +13,7 @@ public class BarStoolBlockItem extends BlockItem {
     public BarStoolBlockItem(Identifier id, Supplier<? extends Block> block) {
         super(
                 block.get(),
-                new Item.Properties().setId(ResourceKey.create(Registries.ITEM, id))
+                new Item.Properties().setId(ResourceKey.create(Registries.ITEM, id)).useBlockDescriptionPrefix()
         );
     }
 }

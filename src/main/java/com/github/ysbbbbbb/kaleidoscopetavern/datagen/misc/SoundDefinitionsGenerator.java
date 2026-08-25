@@ -18,6 +18,14 @@ public class SoundDefinitionsGenerator extends SoundDefinitionsProvider {
         SoundDefinition paddySound = definition().subtitle(subtitle("effect.vision"))
                 .with(sound("effect/vision"));
         this.add(ModSounds.EFFECT_VISION.get(), paddySound);
+
+        this.add(ModSounds.HOLDER_POP.get(), definition()
+                .with(sound("block/holder_pop")));
+        this.add(ModSounds.SHAKER_SHAKING.get(), definition()
+                .with(sound("item/shaker/shaking_1"), sound("item/shaker/shaking_2"),
+                        sound("item/shaker/shaking_3")));
+        this.add(ModSounds.SHAKER_END.get(), definition()
+                .with(sound("item/shaker/end")));
     }
 
     protected static SoundDefinition.Sound sound(final String name) {

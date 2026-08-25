@@ -1,0 +1,11 @@
+{
+  "type": "kaleidoscope_tavern:shaker",
+  "ingredients": [
+    "#kaleidoscope_tavern:cocktail_ingredient_red",
+    "#kaleidoscope_tavern:cocktail_ingredient_green",
+    "#kaleidoscope_tavern:cocktail_ingredient_blue"
+  ],
+  "result": {
+    "id": "kaleidoscope_tavern:nether_special"
+  }
+}

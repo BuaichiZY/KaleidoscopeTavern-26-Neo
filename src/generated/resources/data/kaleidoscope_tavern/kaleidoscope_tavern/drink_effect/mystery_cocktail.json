@@ -1,0 +1,15 @@
+{
+  "effects": {
+    "0": [
+      {
+        "amplifier": 0,
+        "duration": 180,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      }
+    ]
+  },
+  "item": {
+    "id": "kaleidoscope_tavern:mystery_cocktail"
+  }
+}

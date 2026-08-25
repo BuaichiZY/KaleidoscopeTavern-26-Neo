@@ -37,9 +37,8 @@
 ## Current verification state
 
 - `./gradlew.bat tasks --all` succeeds and lists the ModDev tasks above.
-- `./gradlew.bat compileJava` currently fails with many NeoForge/Minecraft 26.1 API migration errors, especially datagen
-  provider imports/methods, recipe APIs, render layer signatures, block entity interface return types, and
-  `MolotovBlockItem` overrides; do not report a green build without re-running it.
+- Local Gradle 9.6.1 with Temurin Java 25.0.4 passes `compileJava` and `build` against NeoForge 26.1.2.95.
+- `downloadAssets` is explicitly configured to use Java 25 so ModDev run tasks do not provision an auxiliary JDK 21.
 
 ## Toolchain gotchas
 

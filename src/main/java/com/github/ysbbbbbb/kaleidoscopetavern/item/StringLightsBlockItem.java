@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public class StringLightsBlockItem extends BlockItem {
     public StringLightsBlockItem(Identifier id, Supplier<? extends Block> block) {
-        super(block.get(), new Properties().setId(ResourceKey.create(Registries.ITEM, id)));
+        super(block.get(), new Properties().setId(ResourceKey.create(Registries.ITEM, id)).useBlockDescriptionPrefix());
     }
 
     @Override

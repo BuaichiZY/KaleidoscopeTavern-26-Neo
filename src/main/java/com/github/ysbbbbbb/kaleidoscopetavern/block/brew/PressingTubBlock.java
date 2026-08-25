@@ -14,8 +14,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
@@ -38,9 +36,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
-import net.neoforged.neoforge.transfer.fluid.FluidStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
@@ -247,32 +243,10 @@ public class PressingTubBlock extends BaseEntityBlock implements SimpleWaterlogg
 
     @Override
     public ItemStack pickupBlock(@Nullable LivingEntity user, LevelAccessor level, BlockPos pos, BlockState state) {
-        ItemStack stack = SimpleWaterloggedBlock.super.pickupBlock(user, level, pos, state);
-        if (!stack.isEmpty()) {
-            return stack;
-        }
-        if (level.isClientSide()) {
-            return stack;
-        }
-
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof PressingTubBlockEntity pressingTub)) {
-            return stack;
-        }
-        if (pressingTub.getFluidAmount() < IPressingTub.MAX_FLUID_AMOUNT) {
-            return stack;
-        }
-        // 判断产物是否是铁桶容器的
-        FluidStacksResourceHandler fluidHandler = pressingTub.getFluid();
-        Item bucket = fluidHandler.getResource(0).getFluid().getBucket();
-        if (bucket instanceof BucketItem) {
-            try (Transaction tx = Transaction.openRoot()) {
-                fluidHandler.extract(fluidHandler.getResource(0), IPressingTub.MAX_FLUID_AMOUNT, tx);
-                tx.commit();
-            }
-            return bucket.getDefaultInstance();
-        }
-        return stack;
+        // BucketPickup is only responsible for the vanilla waterlogged state.
+        // Juice extraction goes through useItemOn/getResult so the interaction
+        // cannot continue as an empty-hand click and remove one ingredient.
+        return SimpleWaterloggedBlock.super.pickupBlock(user, level, pos, state);
     }
 
     @Override

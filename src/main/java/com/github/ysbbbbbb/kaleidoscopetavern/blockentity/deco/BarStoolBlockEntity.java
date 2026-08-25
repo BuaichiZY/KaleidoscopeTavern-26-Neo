@@ -21,6 +21,11 @@ public class BarStoolBlockEntity extends BaseBlockEntity {
      * 缓存的 sit 实体，避免频繁查找实体导致的性能问题
      */
     private @Nullable SitEntity sitEntity = null;
+    /**
+     * 客户端收到方块实体更新时，座位实体的生成包可能尚未处理。
+     * 保留实体 ID，渲染时再延迟解析，恢复原版凳面随乘客转动的效果。
+     */
+    private int sitEntityId = -1;
 
     public BarStoolBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlocks.BAR_STOOL_BE.get(), pos, state);
@@ -51,19 +56,9 @@ public class BarStoolBlockEntity extends BaseBlockEntity {
     @Override
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
-
-        if (this.level != null) {
-            int sitId = input.getIntOr("SitEntityId", -1);
-            if (sitId > 0 && level.getEntity(sitId) instanceof SitEntity sit
-                && sit.blockPosition().equals(this.worldPosition)
-            ) {
-                this.sitEntity = sit;
-            } else {
-                this.sitEntity = null;
-            }
-        } else {
-            this.sitEntity = null;
-        }
+        this.sitEntityId = input.getIntOr("SitEntityId", -1);
+        this.sitEntity = null;
+        this.resolveSitEntity();
     }
 
     @Override
@@ -78,12 +73,24 @@ public class BarStoolBlockEntity extends BaseBlockEntity {
 
     @Nullable
     public SitEntity getSitEntity() {
+        this.resolveSitEntity();
         return sitEntity;
     }
 
     public void setSitEntity(@Nullable SitEntity sitEntity) {
         this.sitEntity = sitEntity;
+        this.sitEntityId = sitEntity == null ? -1 : sitEntity.getId();
         this.refresh();
+    }
+
+    private void resolveSitEntity() {
+        if (this.sitEntity != null || this.sitEntityId <= 0 || this.level == null) {
+            return;
+        }
+        if (this.level.getEntity(this.sitEntityId) instanceof SitEntity sit
+                && sit.blockPosition().equals(this.worldPosition)) {
+            this.sitEntity = sit;
+        }
     }
 
     public DyeColor getColor() {

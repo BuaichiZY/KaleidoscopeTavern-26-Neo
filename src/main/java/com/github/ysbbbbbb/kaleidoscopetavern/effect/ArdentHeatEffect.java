@@ -1,0 +1,127 @@
+package com.github.ysbbbbbb.kaleidoscopetavern.effect;
+
+import com.github.ysbbbbbb.kaleidoscopetavern.api.entity.PlayerExtraData;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModEffects;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
+import com.google.common.collect.Lists;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.NonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArdentHeatEffect extends BaseEffect {
+    public ArdentHeatEffect(int color) {
+        super(color);
+    }
+    /**
+     * 玩家护甲列表
+     */
+    private static final EquipmentSlot[] ARMOR_SLOTS = {
+            EquipmentSlot.HEAD, EquipmentSlot.CHEST,
+            EquipmentSlot.LEGS, EquipmentSlot.FEET
+    };
+
+    @Override
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+        return true;
+    }
+
+    @Override
+    public boolean applyEffectTick(@NonNull ServerLevel serverLevel, @NonNull LivingEntity livingEntity, int amplifier) {
+        if (!(livingEntity instanceof Player player)) {
+            return true;
+        }
+        Level level = player.level();
+        if (level.isClientSide()) {
+            return true;
+        }
+
+        // 即将过期时给予30秒饥饿效果
+        MobEffectInstance instance = player.getEffect(ModEffects.ARDENT_HEAT);
+        if (instance != null && instance.getDuration() <= 1) {
+            player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 0));
+        }
+
+        if (!player.isSprinting()) {
+            return true;
+        }
+
+        // 撞破面前 3×3 的石头
+        Direction facing = player.getDirection();
+        boolean brokeBlocks = false;
+
+        for (BlockPos pos : getFrontBlocks(player.blockPosition(), facing)) {
+            BlockState state = level.getBlockState(pos);
+            if (state.is(TagMod.ARDENT_HEAT_BREAKABLE)) {
+                level.destroyBlock(pos, true, player);
+                brokeBlocks = true;
+            }
+        }
+
+        // 破坏方块时加速饥饿消耗（3 倍消耗速度）
+        if (brokeBlocks) {
+            player.causeFoodExhaustion(1.2F);
+
+            List<EquipmentSlot> slots = Lists.newArrayList();
+            for (EquipmentSlot slot : ARMOR_SLOTS) {
+                ItemStack armor = player.getItemBySlot(slot);
+                if (!armor.isEmpty()) {
+                    slots.add(slot);
+                }
+            }
+
+            if (!slots.isEmpty()) {
+                // 撞墙时随机选择一个扣除耐久
+                int index = level.getRandom().nextInt(slots.size());
+                EquipmentSlot selected = slots.get(index);
+                ItemStack armor = player.getItemBySlot(selected);
+                if (armor.isDamageableItem()) {
+                    armor.hurtAndBreak(1, player, selected);
+                }
+            } else {
+                // 不穿盔甲时，累计撞击 5 次扣 1 点伤害
+                int count = ((PlayerExtraData) player).kaleidoscope_tavern$getPersistentData() + 1;
+                if (count >= 5) {
+                    player.hurt(player.damageSources().generic(), 1.0F);
+                    count -= 5;
+                }
+                ((PlayerExtraData) player).kaleidoscope_tavern$setPersistentData(count);
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 获取玩家面前3×3区域的方块坐标（脚部高度起向上3格，左右各1格）
+     */
+    private static List<BlockPos> getFrontBlocks(BlockPos playerPos, Direction facing) {
+        List<BlockPos> positions = new ArrayList<>();
+        BlockPos center = playerPos.relative(facing);
+        Direction.Axis facingAxis = facing.getAxis();
+
+        for (int dy = 0; dy <= 2; dy++) {
+            for (int d = -1; d <= 1; d++) {
+                BlockPos pos;
+                if (facingAxis == Direction.Axis.Z) {
+                    pos = center.offset(d, dy, 0);
+                } else {
+                    pos = center.offset(0, dy, d);
+                }
+                positions.add(pos);
+            }
+        }
+        return positions;
+    }
+}

@@ -34,7 +34,7 @@ public class PressingTubCategory implements IRecipeCategory<RecipeHolder<Pressin
     public static final IRecipeHolderType<PressingTubRecipe> TYPE = IRecipeType.create(ModRecipes.PRESSING_TUB_RECIPE.get());
 
     private static final Identifier BG = KaleidoscopeTavern.modLoc("textures/gui/jei/pressing_tub.png");
-    private static final MutableComponent TITLE = Component.translatable("item.kaleidoscope_tavern.pressing_tub");
+    private static final MutableComponent TITLE = Component.translatable("block.kaleidoscope_tavern.pressing_tub");
 
     public static final int WIDTH = 155;
     public static final int HEIGHT = 50;

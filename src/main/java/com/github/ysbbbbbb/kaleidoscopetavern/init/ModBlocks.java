@@ -3,17 +3,23 @@ package com.github.ysbbbbbb.kaleidoscopetavern.init;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.BarStoolBlockEntity;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.SandwichBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.ShakerBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.SignatureCocktailBlockEntity;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -117,6 +123,45 @@ public interface ModBlocks {
     DeferredBlock<Block> MONA_LISA_PAINTING = BLOCKS.register("mona_lisa_painting", PaintingBlock::new);
     DeferredBlock<Block> MONDRIAN_PAINTING = BLOCKS.register("mondrian_painting", PaintingBlock::new);
 
+    // 垂灯
+    DeferredBlock<Block> BELL_PENDANT_LAMP = BLOCKS.register("bell_pendant_lamp", id -> new PendantLampBlock(properties(id)));
+    DeferredBlock<Block> YELLOW_PENDANT_LAMP = BLOCKS.register("yellow_pendant_lamp", id -> new PendantLampBlock(properties(id)));
+    DeferredBlock<Block> BLUE_PENDANT_LAMP = BLOCKS.register("blue_pendant_lamp", id -> new PendantLampBlock(properties(id)));
+
+    // 香薰
+    DeferredBlock<Block> SAKURA_INCENSE = BLOCKS.register("sakura_incense", id -> new IncenseBlock(properties(id),
+            ModParticles.SAKURA_INCENSE_PARTICLE, () -> ParticleTypes.CHERRY_LEAVES
+    ));
+
+    DeferredBlock<Block> PINE_INCENSE = BLOCKS.register("pine_incense", id -> new IncenseBlock(properties(id),
+            ModParticles.PINE_INCENSE_PARTICLE, ModParticles.PINE_INCENSE_LARGE_PARTICLE
+    ));
+
+    DeferredBlock<Block> GINKGO_INCENSE = BLOCKS.register("ginkgo_incense", id -> new IncenseBlock(properties(id),
+            ModParticles.GINKGO_INCENSE_PARTICLE, ModParticles.GINKGO_INCENSE_LARGE_PARTICLE
+    ));
+
+    DeferredBlock<Block> SPORE_INCENSE = BLOCKS.register("spore_incense", id -> new IncenseBlock(properties(id),
+            ModParticles.SPORE_INCENSE_PARTICLE, () -> ParticleTypes.SPORE_BLOSSOM_AIR
+    ));
+
+    DeferredBlock<Block> CATNIP_INCENSE = BLOCKS.register("catnip_incense", id -> new IncenseBlock(properties(id),
+            ModParticles.CATNIP_INCENSE_PARTICLE, ModParticles.CATNIP_INCENSE_LARGE_PARTICLE
+    ));
+
+    DeferredBlock<Block> SNOW_INCENSE = BLOCKS.register("snow_incense", id -> new IncenseBlock(properties(id),
+            ModParticles.SNOW_INCENSE_PARTICLE, ModParticles.SNOW_INCENSE_LARGE_PARTICLE
+    ));
+
+    DeferredBlock<Block> BUTTERFLY_INCENSE = BLOCKS.register("butterfly_incense", id -> new IncenseBlock(properties(id),
+            ModParticles.BUTTERFLY_INCENSE_PARTICLE, ModParticles.BUTTERFLY_INCENSE_LARGE_PARTICLE
+    ));
+
+    DeferredBlock<Block> FIREFLY_INCENSE = BLOCKS.register("firefly_incense", id -> new IncenseBlock(properties(id),
+            ModParticles.FIREFLY_INCENSE_PARTICLE, ModParticles.FIREFLY_INCENSE_LARGE_PARTICLE,
+            -0.67, 5.33
+    ));
+
     // 吧台
     DeferredBlock<Block> BAR_COUNTER = BLOCKS.register("bar_counter", BarCounterBlock::new);
     // 人字梯
@@ -167,8 +212,28 @@ public interface ModBlocks {
     DeferredBlock<Block> PRESSING_TUB = BLOCKS.register("pressing_tub", PressingTubBlock::new);
     // 龙头
     DeferredBlock<Block> TAP = BLOCKS.register("tap", TapBlock::new);
+    // 酒杯架
+    DeferredBlock<Block> GLASSWARE_HOLDER = BLOCKS.register("glassware_holder", id -> new GlasswareHolderBlock(properties(id)));
     // 空瓶
     DeferredBlock<Block> EMPTY_BOTTLE = BLOCKS.register("empty_bottle", BottleBlock::new);
+    DeferredBlock<Block> EMPTY_GLASSWARE = BLOCKS.register("empty_glassware", id -> new GlasswareBlock(properties(id)));
+
+    // 鸡尾酒
+    DeferredBlock<Block> SIGNATURE_COCKTAIL = BLOCKS.register("signature_cocktail", id -> new SignatureCocktailBlock(properties(id)));
+    DeferredBlock<Block> MYSTERY_COCKTAIL = BLOCKS.register("mystery_cocktail", id -> new MysteryCocktailBlock(properties(id)));
+    DeferredBlock<Block> WHITE_LADY = BLOCKS.register("white_lady", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> EMERALD = BLOCKS.register("emerald", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> BRASS_HEART = BLOCKS.register("brass_heart", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> GODFATHER = BLOCKS.register("godfather", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> GRASSHOPPER = BLOCKS.register("grasshopper", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> SCREWDRIVER = BLOCKS.register("screwdriver", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> MOJITO = BLOCKS.register("mojito", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> ALLIUM_GARDEN = BLOCKS.register("allium_garden", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> DEPTH_CHARGE = BLOCKS.register("depth_charge", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> NETHER_SPECIAL = BLOCKS.register("nether_special", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> BLOODY_MARY = BLOCKS.register("bloody_mary", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> SCULK_SPECIAL = BLOCKS.register("sculk_special", id -> new CocktailBlock(properties(id)));
+    DeferredBlock<Block> SHAKER = BLOCKS.register("shaker", id -> new ShakerBlock(properties(id)));
     // 燃烧瓶
     DeferredBlock<Block> MOLOTOV = BLOCKS.register("molotov", MolotovBlock::new);
     // 酒桶
@@ -176,11 +241,19 @@ public interface ModBlocks {
     // 酒柜
     DeferredBlock<Block> BAR_CABINET = BLOCKS.register("bar_cabinet", BarCabinetBlock::new);
     DeferredBlock<Block> GLASS_BAR_CABINET = BLOCKS.register("glass_bar_cabinet", BarCabinetBlock::new);
+    DeferredBlock<Block> CELLAR_CABINET = BLOCKS.register("cellar_cabinet", id -> new CellarCabinetBlock(properties(id)));
+
+    // 酒架
+    DeferredBlock<Block> TILTED_RACK = BLOCKS.register("tilted_rack", id -> new TiltedRackBlock(properties(id)));
+    DeferredBlock<Block> CIRCULAR_RACK = BLOCKS.register("circular_rack", id -> new CircularRackBlock(properties(id)));
+    DeferredBlock<Block> HOLDER = BLOCKS.register("holder", id -> new HolderBlock(properties(id)));
 
     // 杂项的瓶子
     DeferredBlock<Block> WATER_BOTTLE = BLOCKS.register("water_bottle", BottleBlock::new);
     DeferredBlock<Block> HONEY_BOTTLE = BLOCKS.register("honey_bottle", BottleBlock::new);
     DeferredBlock<Block> DRAGON_BREATH_BOTTLE = BLOCKS.register("dragon_breath_bottle", BottleBlock::new);
+    DeferredBlock<Block> POTION_BOTTLE = BLOCKS.register("potion_bottle", id -> new PotionBottleBlock(properties(id)));
+    DeferredBlock<Block> XP_BOTTLE = BLOCKS.register("xp_bottle", BottleBlock::new);
 
     // 酒
     DeferredBlock<Block> WINE = BLOCKS.register("wine", id -> DrinkBlock.create().maxCount(4).shapes(
@@ -492,4 +565,38 @@ public interface ModBlocks {
     Supplier<BlockEntityType<BarCabinetBlockEntity>> BAR_CABINET_BE = BLOCK_ENTITIES.register(
             "bar_cabinet", () -> new BlockEntityType<>(BarCabinetBlockEntity::new, BAR_CABINET.get(), GLASS_BAR_CABINET.get())
     );
+
+    Supplier<BlockEntityType<CellarCabinetBlockEntity>> CELLAR_CABINET_BE = BLOCK_ENTITIES.register(
+            "cellar_cabinet", () -> new BlockEntityType<>(CellarCabinetBlockEntity::new, CELLAR_CABINET.get())
+    );
+    Supplier<BlockEntityType<TiltedRackBlockEntity>> TILTED_RACK_BE = BLOCK_ENTITIES.register(
+            "tilted_rack", () -> new BlockEntityType<>(TiltedRackBlockEntity::new, TILTED_RACK.get())
+    );
+    Supplier<BlockEntityType<CircularRackBlockEntity>> CIRCULAR_RACK_BE = BLOCK_ENTITIES.register(
+            "circular_rack", () -> new BlockEntityType<>(CircularRackBlockEntity::new, CIRCULAR_RACK.get())
+    );
+    Supplier<BlockEntityType<HolderBlockEntity>> HOLDER_BE = BLOCK_ENTITIES.register(
+            "holder", () -> new BlockEntityType<>(HolderBlockEntity::new, HOLDER.get())
+    );
+    Supplier<BlockEntityType<ShakerBlockEntity>> SHAKER_BE = BLOCK_ENTITIES.register(
+            "shaker", () -> new BlockEntityType<>(ShakerBlockEntity::new, SHAKER.get())
+    );
+    Supplier<BlockEntityType<SignatureCocktailBlockEntity>> SIGNATURE_COCKTAIL_BE = BLOCK_ENTITIES.register(
+            "signature_cocktail", () -> new BlockEntityType<>(SignatureCocktailBlockEntity::new, SIGNATURE_COCKTAIL.get())
+    );
+    Supplier<BlockEntityType<IncenseBlockEntity>> INCENSE_BE = BLOCK_ENTITIES.register(
+            "incense", () -> new BlockEntityType<>(IncenseBlockEntity::new,
+                    SAKURA_INCENSE.get(), PINE_INCENSE.get(), GINKGO_INCENSE.get(), SPORE_INCENSE.get(),
+                    CATNIP_INCENSE.get(), SNOW_INCENSE.get(), BUTTERFLY_INCENSE.get(), FIREFLY_INCENSE.get())
+    );
+    Supplier<BlockEntityType<GlasswareHolderBlockEntity>> GLASSWARE_HOLDER_BE = BLOCK_ENTITIES.register(
+            "glassware_holder", () -> new BlockEntityType<>(GlasswareHolderBlockEntity::new, GLASSWARE_HOLDER.get())
+    );
+    Supplier<BlockEntityType<PotionBottleBlockEntity>> POTION_BOTTLE_BE = BLOCK_ENTITIES.register(
+            "potion_bottle", () -> new BlockEntityType<>(PotionBottleBlockEntity::new, POTION_BOTTLE.get())
+    );
+
+    private static BlockBehaviour.Properties properties(Identifier id) {
+        return BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, id));
+    }
 }

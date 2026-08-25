@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.client.init;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.BarrelRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe;
+import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.ShakerRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
 import com.google.common.collect.Lists;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -19,11 +20,13 @@ import java.util.List;
 public class ClientRecipeEvent {
     public static List<RecipeHolder<BarrelRecipe>> BARREL_RECIPES = Collections.emptyList();
     public static List<RecipeHolder<PressingTubRecipe>> PRESSING_TUB_RECIPES = Collections.emptyList();
+    public static List<RecipeHolder<ShakerRecipe>> SHAKER_RECIPES = Collections.emptyList();
 
     @SubscribeEvent
     public static void onRecipeReceived(RecipesReceivedEvent event) {
         RecipeMap recipeMap = event.getRecipeMap();
         BARREL_RECIPES = Lists.newArrayList(recipeMap.byType(ModRecipes.BARREL_RECIPE.get()));
         PRESSING_TUB_RECIPES = Lists.newArrayList(recipeMap.byType(ModRecipes.PRESSING_TUB_RECIPE.get()));
+        SHAKER_RECIPES = Lists.newArrayList(recipeMap.byType(ModRecipes.SHAKER_RECIPE.get()));
     }
 }

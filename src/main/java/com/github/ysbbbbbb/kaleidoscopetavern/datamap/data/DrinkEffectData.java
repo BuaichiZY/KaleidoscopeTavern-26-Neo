@@ -4,6 +4,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStackTemplate;
 
@@ -56,6 +59,14 @@ public record DrinkEffectData(ItemStackTemplate item, Map<Integer, List<Entry>> 
                 Codec.INT.fieldOf("amplifier").forGetter(Entry::amplifier),
                 Codec.FLOAT.fieldOf("probability").forGetter(Entry::probability)
         ).apply(instance, Entry::new));
+
+        public static final StreamCodec<RegistryFriendlyByteBuf, Entry> STREAM_CODEC = StreamCodec.composite(
+                MobEffect.STREAM_CODEC, Entry::effect,
+                ByteBufCodecs.VAR_INT, Entry::duration,
+                ByteBufCodecs.VAR_INT, Entry::amplifier,
+                ByteBufCodecs.FLOAT, Entry::probability,
+                Entry::new
+        );
 
         public int durationTicks() {
             return this.duration * 20;

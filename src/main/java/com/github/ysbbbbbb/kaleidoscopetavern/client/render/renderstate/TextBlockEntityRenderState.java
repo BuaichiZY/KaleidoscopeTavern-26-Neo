@@ -1,0 +1,16 @@
+package com.github.ysbbbbbb.kaleidoscopetavern.client.render.renderstate;
+
+import com.github.ysbbbbbb.kaleidoscopetavern.util.TextAlignment;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+public class TextBlockEntityRenderState extends BlockEntityRenderState {
+    @Deprecated(forRemoval = true)
+    public Direction facing = Direction.NORTH;
+    public int direction;
+    public String text = "";
+    public DyeColor color = DyeColor.WHITE;
+    public boolean glowing = false;
+    public TextAlignment textAlignment;
+}

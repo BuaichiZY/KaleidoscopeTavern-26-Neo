@@ -43,6 +43,9 @@ public class SitEntity extends Entity {
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
+        // Match the working 1.1.2 NeoForge port: keep Minecraft 26.1.2's
+        // native vehicle/passenger attachment calculation and only lower the
+        // resulting seat anchor by one pixel.
         return super.getPassengerRidingPosition(entity).add(0, -0.0625, 0);
     }
 

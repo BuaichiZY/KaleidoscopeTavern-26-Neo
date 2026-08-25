@@ -30,7 +30,7 @@ public class BarrelRecipeCategory implements IRecipeCategory<RecipeHolder<Barrel
     public static final IRecipeHolderType<BarrelRecipe> TYPE = IRecipeType.create(ModRecipes.BARREL_RECIPE.get());
 
     private static final Identifier BG = KaleidoscopeTavern.modLoc("textures/gui/jei/barrel.png");
-    private static final MutableComponent TITLE = Component.translatable("item.kaleidoscope_tavern.barrel");
+    private static final MutableComponent TITLE = Component.translatable("block.kaleidoscope_tavern.barrel");
 
     public static final int WIDTH = 180;
     public static final int HEIGHT = 150;

@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.init;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.BarrelRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe;
+import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.ShakerRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -18,10 +19,13 @@ public interface ModRecipes {
 
     Supplier<RecipeSerializer<PressingTubRecipe>> PRESSING_TUB_SERIALIZER = RECIPE_SERIALIZERS.register("pressing_tub", () -> PressingTubRecipe.SERIALIZER);
     Supplier<RecipeSerializer<BarrelRecipe>> BARREL_SERIALIZER = RECIPE_SERIALIZERS.register("barrel", () -> BarrelRecipe.SERIALIZER);
+    Supplier<RecipeSerializer<ShakerRecipe>> SHAKER_SERIALIZER = RECIPE_SERIALIZERS.register("shaker", () -> ShakerRecipe.SERIALIZER);
 
     Supplier<RecipeType<PressingTubRecipe>> PRESSING_TUB_RECIPE = RECIPE_TYPES.register("pressing_tub", () -> RecipeType.simple(KaleidoscopeTavern.modLoc("pressing_tub")));
     Supplier<RecipeType<BarrelRecipe>> BARREL_RECIPE = RECIPE_TYPES.register("barrel", () -> RecipeType.simple(KaleidoscopeTavern.modLoc("barrel")));
+    Supplier<RecipeType<ShakerRecipe>> SHAKER_RECIPE = RECIPE_TYPES.register("shaker", () -> RecipeType.simple(KaleidoscopeTavern.modLoc("shaker")));
 
     Supplier<RecipeBookCategory> PRESSING_TUB_RECIPE_CATEGORY = RECIPE_BOOK_CATEGORIES.register("pressing_tub", RecipeBookCategory::new);
     Supplier<RecipeBookCategory> BARREL_RECIPE_CATEGORY = RECIPE_BOOK_CATEGORIES.register("barrel", RecipeBookCategory::new);
+    Supplier<RecipeBookCategory> SHAKER_RECIPE_CATEGORY = RECIPE_BOOK_CATEGORIES.register("shaker", RecipeBookCategory::new);
 }

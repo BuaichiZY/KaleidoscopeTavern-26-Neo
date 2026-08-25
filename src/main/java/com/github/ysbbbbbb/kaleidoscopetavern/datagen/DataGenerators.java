@@ -6,7 +6,6 @@ import com.github.ysbbbbbb.kaleidoscopetavern.datagen.datamap.DrinkEffectDataPro
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.loottable.LootTableGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.misc.ParticleDescriptionGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.misc.SoundDefinitionsGenerator;
-import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.ModModelProvider;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.recipe.ModRecipeGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag.TagBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag.TagItem;
@@ -24,7 +23,9 @@ public class DataGenerators {
         var registries = event.getLookupProvider();
         var pack = generator.getPackOutput();
 
-        generator.addProvider(true, new ModModelProvider(pack));
+        // The complete 1.2 model/blockstate set is kept as checked-in generated resources.
+        // The partial 26.1 model generator only knows the older 1.1 registry and rejects
+        // the new mixology/decor blocks, so do not let it overwrite those complete files.
         generator.addProvider(true, new LootTableGenerator(pack, registries));
         generator.addProvider(true, new DataMapGenerator(pack, registries));
 

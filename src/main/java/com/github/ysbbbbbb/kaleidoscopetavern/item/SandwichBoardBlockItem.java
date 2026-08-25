@@ -24,7 +24,7 @@ public class SandwichBoardBlockItem extends BlockItem {
     public SandwichBoardBlockItem(Identifier id, Supplier<? extends Block> block) {
         super(block.get(), new Properties()
                 .setId(ResourceKey.create(Registries.ITEM, id))
-                .overrideDescription("item.kaleidoscope_tavern.sandwich_board")
+                .overrideDescription("block.kaleidoscope_tavern.sandwich_board")
         );
     }
 
