@@ -19,16 +19,21 @@ gradlew.bat runData
 
 ## 已完成验证
 
-- `runData`：通过，394 个当前格式的数据文件成功生成，无资源被误删。
+- `runData`：通过，430 个当前格式的数据文件成功生成，无资源被误删。
 - `build`：通过，主 JAR 与源码 JAR 均已生成。
 - `runGameTestServer`：通过，专用服务器完成数据包加载，1 项必需测试通过。
 - 主类字节码版本为 69（Java 25）。
 
-当前修复版本：`v1.1.22`
+当前修复版本：`v1.1.24`
 
-最终主 JAR：`build/libs/kaleidoscopetavern-26.1.2-v1.1.22.jar`
+最终主 JAR：`build/libs/kaleidoscopetavern-26.1.2-v1.1.24.jar`
 
-源码 JAR：`build/libs/kaleidoscopetavern-26.1.2-v1.1.22-source.jar`
+源码 JAR：`build/libs/kaleidoscopetavern-26.1.2-v1.1.24-source.jar`
+
+### v1.1.24
+
+- 根据整合包日志恢复 18 个未纳入 26.1.2 数据生成器的有序合成配方，包括雪克杯、酒杯、酒架、垂灯、窖藏酒柜和 8 种香薰；全部配料已改为 26.1.2 的字符串 Ingredient 格式，并将旧版 `minecraft:chain` 更新为 `minecraft:iron_chain`，对应配方解锁进度也已同步重新生成。
+- 移除指向不存在文件的 Mixin refmap 配置；保留全部客户端 Mixin，并消除生产环境启动时的无效 refmap 警告。
 
 ### v1.1.22
 

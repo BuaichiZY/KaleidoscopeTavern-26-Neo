@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:soul_lantern"
-    },
-    "C": {
-      "item": "minecraft:chain"
-    }
+    "B": "minecraft:soul_lantern",
+    "C": "minecraft:iron_chain"
   },
   "pattern": [
     "C",

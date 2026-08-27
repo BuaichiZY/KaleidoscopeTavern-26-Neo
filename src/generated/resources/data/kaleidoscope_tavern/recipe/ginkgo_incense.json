@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:glass_bottle"
-    },
-    "C": {
-      "item": "minecraft:yellow_dye"
-    },
-    "F": {
-      "item": "minecraft:feather"
-    }
+    "B": "minecraft:glass_bottle",
+    "C": "minecraft:yellow_dye",
+    "F": "minecraft:feather"
   },
   "pattern": [
     "F",
@@ -18,7 +12,6 @@
     "B"
   ],
   "result": {
-    "count": 1,
     "id": "kaleidoscope_tavern:ginkgo_incense"
   }
 }

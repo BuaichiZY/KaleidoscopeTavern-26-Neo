@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:bell"
-    },
-    "C": {
-      "item": "minecraft:chain"
-    }
+    "B": "minecraft:bell",
+    "C": "minecraft:iron_chain"
   },
   "pattern": [
     "C",
