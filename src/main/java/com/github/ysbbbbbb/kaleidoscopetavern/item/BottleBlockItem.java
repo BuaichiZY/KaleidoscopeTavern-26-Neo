@@ -69,7 +69,7 @@ public class BottleBlockItem extends BlockItem {
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
         ChatFormatting applied = ColorUtils.ITEM_COLOR_CACHE.apply(stack.getItem());
         if (applied != ChatFormatting.RESET) {
-            String key = "color.kaleidoscope_tavern.%s".formatted(applied.getName());
+            String key = "color.kaleidoscope_tavern.%s".formatted(ColorUtils.name(applied));
             Component text = Component.translatable("color.kaleidoscope_tavern.prefix")
                     .withStyle(ChatFormatting.GRAY)
                     .append(Component.translatable(key).withStyle(applied));

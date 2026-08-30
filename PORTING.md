@@ -1,11 +1,11 @@
-# Minecraft 26.1.2 移植说明
+# Minecraft 26.2 移植说明
 
-本工程基于 Kaleidoscope Tavern 1.2.0 的公开源码与原版资源，目标环境为：
+本工程以功能完整的 Minecraft 26.1.2 移植版为基线，继续移植到：
 
-- Minecraft 26.1.2
-- NeoForge 26.1.2.86 及以上（开发构建使用 26.1.2.95）
+- Minecraft 26.2
+- NeoForge 26.2.0.68 及以上
 - Java 25
-- Gradle Wrapper 9.4.1
+- 本地 Gradle 9.6.1（项目 Wrapper 保留 9.4.1）
 
 在 Windows 下使用项目自带的 Gradle Wrapper 构建，例如：
 
@@ -24,11 +24,21 @@ gradlew.bat runData
 - `runGameTestServer`：通过，专用服务器完成数据包加载，1 项必需测试通过。
 - 主类字节码版本为 69（Java 25）。
 
-当前修复版本：`v1.1.24`
+当前 26.2 版本：`v1.0.0`
 
-最终主 JAR：`build/libs/kaleidoscopetavern-26.1.2-v1.1.24.jar`
+最终主 JAR：`build/libs/kaleidoscopetavern-26.2-v1.0.0.jar`
 
-源码 JAR：`build/libs/kaleidoscopetavern-26.1.2-v1.1.24-source.jar`
+源码 JAR：`build/libs/kaleidoscopetavern-26.2-v1.0.0-source.jar`
+
+## 26.2 迁移内容
+
+- 将 Minecraft 与 NeoForge 依赖升级到 26.2 / 26.2.0.68，并迁移染料、羊毛、标签数据生成、成就触发器、即时效果、文本格式和客户端界面等 26.2 API。
+- 重新接通 26.2 的第一人称手持物品提交入口，保留原版雪克杯摇酒变换及既有 Punchy、Player Animation Library 兼容逻辑。
+- 使用 26.2 数据生成器更新 430 个可再生成资源，同时保留完整的手工模型、方块状态、语言、配方及兼容资源。
+- 开发客户端已成功加载 Minecraft、NeoForge、本模组、JEI 与 Jade，全部客户端 Mixin、Jade 插件和资源包均正常载入。
+- `compileJava`、`runData` 与 `runGameTestServer` 均通过；专用游戏测试共 1 项，结果为 1/1 通过。
+
+## 26.1.2 基线修复历史
 
 ### v1.1.24
 

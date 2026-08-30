@@ -8,6 +8,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.item.Item;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -57,7 +58,7 @@ public class ColorUtils {
         int count = 0;
         if (colors != null) {
             for (ChatFormatting format : colors) {
-                Integer color = format == null ? null : format.getColor();
+                Integer color = color(format);
                 if (format != ChatFormatting.RESET && color != null) {
                     red += color >> 16 & 0xFF;
                     green += color >> 8 & 0xFF;
@@ -67,5 +68,43 @@ public class ColorUtils {
             }
         }
         return count == 0 ? 0xFFFFFF : (red / count << 16) | (green / count << 8) | blue / count;
+    }
+
+    public static String name(ChatFormatting formatting) {
+        return formatting.name().toLowerCase(Locale.ROOT);
+    }
+
+    public static int serializedId(ChatFormatting formatting) {
+        return formatting.ordinal();
+    }
+
+    public static ChatFormatting bySerializedId(int id) {
+        ChatFormatting[] values = ChatFormatting.values();
+        return 0 <= id && id < values.length ? values[id] : null;
+    }
+
+    public static Integer color(ChatFormatting formatting) {
+        if (formatting == null) {
+            return null;
+        }
+        return switch (formatting) {
+            case BLACK -> 0x000000;
+            case DARK_BLUE -> 0x0000AA;
+            case DARK_GREEN -> 0x00AA00;
+            case DARK_AQUA -> 0x00AAAA;
+            case DARK_RED -> 0xAA0000;
+            case DARK_PURPLE -> 0xAA00AA;
+            case GOLD -> 0xFFAA00;
+            case GRAY -> 0xAAAAAA;
+            case DARK_GRAY -> 0x555555;
+            case BLUE -> 0x5555FF;
+            case GREEN -> 0x55FF55;
+            case AQUA -> 0x55FFFF;
+            case RED -> 0xFF5555;
+            case LIGHT_PURPLE -> 0xFF55FF;
+            case YELLOW -> 0xFFFF55;
+            case WHITE -> 0xFFFFFF;
+            default -> null;
+        };
     }
 }

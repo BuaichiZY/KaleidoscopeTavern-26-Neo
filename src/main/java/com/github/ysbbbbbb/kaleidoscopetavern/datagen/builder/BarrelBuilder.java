@@ -5,7 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.BarrelRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.serializer.BarrelRecipeSerializer;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.google.common.collect.Lists;
-import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;

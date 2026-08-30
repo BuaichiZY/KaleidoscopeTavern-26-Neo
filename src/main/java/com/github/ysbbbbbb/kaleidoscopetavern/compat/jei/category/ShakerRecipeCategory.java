@@ -5,6 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.ShakerRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.init.ClientRecipeEvent;
+import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -57,7 +58,7 @@ public class ShakerRecipeCategory implements IRecipeCategory<RecipeHolder<Shaker
     }
 
     private static void renderIngredientColor(GuiGraphicsExtractor guiGraphics, int index, ChatFormatting color) {
-        Integer rawColor = color.getColor();
+        Integer rawColor = ColorUtils.color(color);
         if (rawColor == null) {
             return;
         }

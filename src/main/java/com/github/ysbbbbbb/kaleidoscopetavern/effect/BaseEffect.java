@@ -22,7 +22,7 @@ public class BaseEffect extends MobEffect {
     }
 
     @Override
-    public void applyInstantenousEffect(ServerLevel level, @Nullable Entity source, @Nullable Entity indirectSource,
+    public void applyInstantaneousEffect(ServerLevel level, @Nullable Entity source, @Nullable Entity indirectSource,
                                         LivingEntity livingEntity, int amplifier, double scale) {
     }
 

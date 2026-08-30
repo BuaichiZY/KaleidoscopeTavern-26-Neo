@@ -70,8 +70,8 @@ public class SignatureCocktailBlockItem extends CocktailBlockItem {
             if (!level.isClientSide() && level.getRandom().nextFloat() < entry.probability()) {
                 MobEffect effect = entry.effect().value();
                 int amplifier = entry.amplifier();
-                if (effect.isInstantenous() && level instanceof ServerLevel serverLevel) {
-                    effect.applyInstantenousEffect(serverLevel, entity, entity, entity, amplifier, 1.0);
+                if (effect.isInstantaneous() && level instanceof ServerLevel serverLevel) {
+                    effect.applyInstantaneousEffect(serverLevel, entity, entity, entity, amplifier, 1.0);
                 } else {
                     int duration = entry.duration() * 20;
                     entity.addEffect(new MobEffectInstance(entry.effect(), duration, amplifier));

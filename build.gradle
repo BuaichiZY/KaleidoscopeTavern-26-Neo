@@ -75,7 +75,6 @@ sourceSets.main.resources {
 }
 
 repositories {
-    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
     maven { url = "https://maven.createmod.net" }
     maven {
         name = "Jared's maven"
@@ -129,21 +128,20 @@ repositories {
     }
 }
 
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
 dependencies {
     // JEI
-    compileOnly "mezz.jei:jei-26.1.2-neoforge-api:29.5.0.26"
-    // Install the full JEI mod in run/client only when testing that optional integration.
-
-    // EMI
-    compileOnly "maven.modrinth:emi:1.1.22+1.21.1+neoforge"
-
-    // REI
-    compileOnly "maven.modrinth:cloth-config:15.0.140+neoforge"
-    compileOnly "maven.modrinth:architectury-api:13.0.8+neoforge"
-    compileOnly "maven.modrinth:rei:16.0.788+neoforge"
+    def jeiDependency = "maven.modrinth:jei:m5c91DLw"
+    compileOnly jeiDependency
+    localRuntime jeiDependency
 
     // Jade
-    implementation "maven.modrinth:jade:26.1.1+neoforge"
+    def jadeDependency = "maven.modrinth:nvQzSEkH:fQ5Kzx2d"
+    compileOnly jadeDependency
+    localRuntime jadeDependency
 
     // KubeJS
     // compileOnly "dev.latvian.mods:rhino:2101.2.7-build.72"
@@ -153,10 +151,6 @@ dependencies {
 
     // runtimeOnly "maven.modrinth:nbtedit-reborn:5.2.11+mc1.21.1-neoforge"
     // runtimeOnly "maven.modrinth:kiwi:15.6.1+neoforge"
-
-    // Ponder
-    compileOnly "net.createmod.ponder:Ponder-NeoForge-1.21.1:1.0.56"
-    // runtimeOnly "maven.modrinth:create:1.21.1-6.0.6"
 
     // runtimeOnly "maven.modrinth:carry-on:2.2.4-neoforge,1.21.1"
 

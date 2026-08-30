@@ -33,7 +33,6 @@ import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.GuiLayer;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
-import java.util.Objects;
 @EventBusSubscriber(modid = KaleidoscopeTavern.MOD_ID, value = Dist.CLIENT)
 public class ShakerOverlay implements GuiLayer {
     private static final Identifier IMG = Identifier.fromNamespaceAndPath(KaleidoscopeTavern.MOD_ID, "textures/gui/shaker.png");
@@ -112,7 +111,7 @@ public class ShakerOverlay implements GuiLayer {
                 guiGraphics.fakeItem(stack, x, y);
                 guiGraphics.itemDecorations(font, stack, x, y);
             } else {
-                int color = Objects.requireNonNull(chatFormatting.getColor()) | 0xFF000000;
+                int color = ColorUtils.color(chatFormatting) | 0xFF000000;
                 renderIcon(guiGraphics, x, y + 6, color);
             }
             x += 20;

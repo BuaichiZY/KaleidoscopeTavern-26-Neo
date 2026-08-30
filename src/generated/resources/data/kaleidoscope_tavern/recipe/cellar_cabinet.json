@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "G": "kaleidoscope_tavern:grapevine",
-    "T": "#minecraft:trapdoors"
+    "T": "#minecraft:wooden_trapdoors"
   },
   "pattern": [
     "GGG",

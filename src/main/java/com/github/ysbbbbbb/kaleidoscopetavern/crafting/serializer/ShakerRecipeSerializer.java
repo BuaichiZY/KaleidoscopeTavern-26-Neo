@@ -1,6 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.crafting.serializer;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.ShakerRecipe;
+import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -54,7 +55,7 @@ public class ShakerRecipeSerializer {
             int colorSize = buf.readVarInt();
             for (int i = 0; i < colorSize; i++) {
                 int index = buf.readVarInt();
-                ChatFormatting formatting = ChatFormatting.getById(buf.readVarInt());
+                ChatFormatting formatting = ColorUtils.bySerializedId(buf.readVarInt());
                 if (formatting != null) {
                     ingredientColors.put(index, formatting);
                 }
@@ -76,7 +77,7 @@ public class ShakerRecipeSerializer {
             buf.writeVarInt(ingredientColors.size());
             ingredientColors.forEach((index, formatting) -> {
                 buf.writeVarInt(index);
-                buf.writeVarInt(formatting.getId());
+                buf.writeVarInt(ColorUtils.serializedId(formatting));
             });
         }
     };

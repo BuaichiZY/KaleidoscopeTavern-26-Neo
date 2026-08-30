@@ -60,24 +60,7 @@ public class StringLightsBlock extends HorizontalDirectionalBlock implements Sim
     public StringLightsBlock(Properties properties, @Nullable DyeColor dyeColor) {
         super(properties);
         if (dyeColor != null) {
-            this.dyeItem = switch (dyeColor) {
-                case ORANGE -> Items.ORANGE_DYE;
-                case MAGENTA -> Items.MAGENTA_DYE;
-                case LIGHT_BLUE -> Items.LIGHT_BLUE_DYE;
-                case YELLOW -> Items.YELLOW_DYE;
-                case LIME -> Items.LIME_DYE;
-                case PINK -> Items.PINK_DYE;
-                case GRAY -> Items.GRAY_DYE;
-                case LIGHT_GRAY -> Items.LIGHT_GRAY_DYE;
-                case CYAN -> Items.CYAN_DYE;
-                case PURPLE -> Items.PURPLE_DYE;
-                case BLUE -> Items.BLUE_DYE;
-                case BROWN -> Items.BROWN_DYE;
-                case GREEN -> Items.GREEN_DYE;
-                case RED -> Items.RED_DYE;
-                case BLACK -> Items.BLACK_DYE;
-                default -> Items.WHITE_DYE;
-            };
+            this.dyeItem = Items.DYE.pick(dyeColor);
             TRANSFORM_MAP.put(dyeItem, this);
         } else {
             this.dyeItem = null;

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "G": "kaleidoscope_tavern:grapevine",
     "P": "#c:glass_panes"

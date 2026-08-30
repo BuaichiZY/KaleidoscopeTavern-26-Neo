@@ -26,7 +26,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.List;
 
 /**
- * 文本类方块实体渲染器抽象基类（NeoForge 26.1.2 新渲染 API）
+ * 文本类方块实体渲染器抽象基类（NeoForge 26.2 渲染 API）
  */
 public abstract class TextBlockEntityRender<T extends TextBlockEntity, S extends TextBlockRenderState> implements BlockEntityRenderer<T, S> {
     protected static final int OUTLINE_RENDER_DISTANCE = Mth.square(16);

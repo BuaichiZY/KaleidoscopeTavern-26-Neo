@@ -27,17 +27,17 @@
 
 ## Generated and runtime files
 
-- `runData` writes generated assets/data to `src/generated/resources/`; `sourceSets.main.resources` includes that
-  directory and excludes `.cache/**`.
+- `runData` validates generated assets/data in `build/generated/resources/`; the complete checked-in resource set remains
+  in `src/generated/resources/`, which `sourceSets.main.resources` includes while excluding `.cache/**`.
 - `run/client`, `run/client2`, and `run/server` are local game directories and are ignored by git.
 - `META-INF/accesstransformer.cfg` is declared from `neoforge.mods.toml`; if moving it, update both ModDevGradle/TOML
   wiring.
-- `kaleidoscope_tavern.mixins.json` is registered but currently has empty `mixins` and `client` arrays.
+- `kaleidoscope_tavern.mixins.json` is registered and contains client animation, model and compatibility mixins.
 
 ## Current verification state
 
-- `./gradlew.bat tasks --all` succeeds and lists the ModDev tasks above.
-- Local Gradle 9.6.1 with Temurin Java 25.0.4 passes `compileJava` and `build` against NeoForge 26.1.2.95.
+- `compileJava`, `runData`, `runGameTestServer`, and a development-client startup pass against Minecraft 26.2 and NeoForge 26.2.0.68.
+- Local Gradle 9.6.1 with Temurin Java 25.0.4 is the verified build toolchain; the project wrapper remains at Gradle 9.4.1.
 - `downloadAssets` is explicitly configured to use Java 25 so ModDev run tasks do not provision an auxiliary JDK 21.
 
 ## Toolchain gotchas

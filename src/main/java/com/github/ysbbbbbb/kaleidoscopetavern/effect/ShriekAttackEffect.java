@@ -26,12 +26,12 @@ public class ShriekAttackEffect extends BaseEffect {
     }
 
     @Override
-    public boolean isInstantenous() {
+    public boolean isInstantaneous() {
         return true;
     }
 
     @Override
-    public void applyInstantenousEffect(
+    public void applyInstantaneousEffect(
             @NonNull ServerLevel serverLevel,
             @Nullable Entity entity,
             @Nullable Entity entity2,

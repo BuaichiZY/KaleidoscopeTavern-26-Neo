@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "B": "minecraft:bell",
     "C": "minecraft:iron_chain"

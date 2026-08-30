@@ -3,7 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.datagen.builder;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.serializer.PressingTubRecipeSerializer;
-import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;

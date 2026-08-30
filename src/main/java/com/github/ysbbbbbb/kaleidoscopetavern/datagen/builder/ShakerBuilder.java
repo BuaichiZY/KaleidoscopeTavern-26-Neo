@@ -5,7 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.ShakerRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.serializer.ShakerRecipeSerializer;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
-import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;

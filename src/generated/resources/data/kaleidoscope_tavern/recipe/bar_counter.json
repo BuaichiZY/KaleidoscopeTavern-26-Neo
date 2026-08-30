@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "N": "#c:nuggets/gold",
     "W": "#minecraft:planks"
